@@ -15,8 +15,8 @@ const corsOptions =  {
 app.use(cors(corsOptions));
 
 const checkJwt = auth({
-  audience: 'https://dev-ay72q0bq.us.auth0.com/api/v2/',
-  issuerBaseURL: `https://dev-ay72q0bq.us.auth0.com/`,
+  audience: process.env.AUDIENCE,
+  issuerBaseURL: process.env.ISSUER_BASE_URL,
 });
 
 app.get('/api/public', function(req, res) {
