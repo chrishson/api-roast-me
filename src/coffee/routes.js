@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { auth, requiredScopes } = require('express-oauth2-jwt-bearer');
-const { getCoffeesByUserID } = require('./controller')
+const { getCoffeesByUserID, addCoffeeByUserID } = require('./controller')
 require('dotenv').config();
 
 if (!process.env.ISSUER_BASE_URL || !process.env.AUDIENCE) {
@@ -15,6 +15,8 @@ const checkJwt = auth({
 const router = Router();
 
 router.get('/', checkJwt, getCoffeesByUserID);
+
+router.post('/', checkJwt, addCoffeeByUserID);
 
 router.get('/private-scoped', checkJwt, requiredScopes('read:messages'), function (req, res) {
     res.json({
